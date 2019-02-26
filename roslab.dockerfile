@@ -103,6 +103,22 @@ LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
 
 RUN apt-get update && apt-get install -y --no-install-recommends             libcudnn6=$CUDNN_VERSION-1+cuda8.0             libcudnn6-dev=$CUDNN_VERSION-1+cuda8.0 &&     rm -rf /var/lib/apt/lists/*
 
+################################# CMAKE_UPDATE #################################
+
+RUN apt remove -y --purge --auto-remove cmake
+
+RUN apt-get update \
+ && apt-get install -yq --no-install-recommends wget libcurl4-openssl-dev zlib1g-dev\
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /temp_cmake && cd /temp_cmake \
+ && wget https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
+ && tar -xzvf cmake-3.7.2.tar.gz \
+ && cd cmake-3.7.2 \
+ && ./bootstrap --system-curl && make -j4 && make install \
+ && rm -fr /temp_cmake
+
 ##################################### APT ######################################
 
 RUN apt-get update \

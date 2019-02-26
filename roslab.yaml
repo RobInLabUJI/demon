@@ -5,6 +5,7 @@ base:
   cuda: 8.0-devel
   cudnn: 6-devel
   opengl: runtime
+  cmake_update: 3.7.2
 
 apt:
   - python3-tk
