@@ -1,0 +1,22 @@
+name: demon
+
+base:
+  ubuntu: 16.04
+  cuda: 8.0-devel
+  cudnn: 6-devel
+  opengl: runtime
+
+apt:
+  - python3-tk
+
+pip3:
+  - tensorflow-gpu==1.4
+  - pillow
+  - matplotlib
+  - Cython
+
+custom:
+  - rm /usr/bin/python
+  - ln -s /usr/bin/python3.5 /usr/bin/python
+
+
